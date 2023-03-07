@@ -70,6 +70,11 @@ public struct ReloadableState<Data: Equatable & Codable, ErrorType: Error & Equa
 
     /// Alert state value
     public var alert: AlertState<ReloadableAction<Data, ErrorType>>?
+    
+    // MARK: - Initializers
+    
+    public init() {
+    }
 
     // MARK: - DynamicMemberLookup
 

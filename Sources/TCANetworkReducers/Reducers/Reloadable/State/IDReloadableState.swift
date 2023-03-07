@@ -24,6 +24,12 @@ public struct IDReloadableState<Data: Equatable & Codable & Identifiable, ErrorT
 
     /// Reloadable composition instance
     public var reloadable = ReloadableState<Data, ErrorType>()
+    
+    // MARK: - Initializers
+    
+    public init(id: Data.ID) {
+        self.id = id
+    }
 
     // MARK: - DynamicMemberLookup
 

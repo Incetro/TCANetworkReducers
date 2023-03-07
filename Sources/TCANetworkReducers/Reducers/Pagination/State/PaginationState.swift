@@ -64,6 +64,12 @@ public struct PaginationState<Element>: Equatable, Codable where Element: Equata
     public var results: [Element] = []
 
     public var isNeededAutomaticButtonLoading = true
+    
+    // MARK: - Initializers
+    
+    public init(pageSize: Int) {
+        self.pageSize = pageSize
+    }
 
     // MARK: - DynamicMemberLookup
 
