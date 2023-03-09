@@ -27,8 +27,23 @@ public struct IDReloadableState<Data: Equatable & Codable & Identifiable, ErrorT
     
     // MARK: - Initializers
     
-    public init(id: Data.ID) {
+    public init(
+        id: Data.ID,
+        status: ReloadableState<Data, ErrorType>.Status = .initial,
+        data: Data? = nil,
+        autoReloadingMode: ReloadableState<Data, ErrorType>.AutoReloadingType = .defered(),
+        reloadingAttemptsCount: Int = 0,
+        alertMode: ReloadableState<Data, ErrorType>.AlertMode = .onFailure(shoudDisplayOnReload: true),
+        shouldDisplayLoader: Bool = true
+    ) {
         self.id = id
+        self.reloadable = ReloadableState<Data, ErrorType>()
+        self.reloadable.status = status
+        self.reloadable.data = data
+        self.reloadable.autoReloadingMode = autoReloadingMode
+        self.reloadable.reloadingAttemptsCount = reloadingAttemptsCount
+        self.reloadable.alertMode = alertMode
+        self.reloadable.shouldDisplayLoader = shouldDisplayLoader
     }
 
     // MARK: - DynamicMemberLookup

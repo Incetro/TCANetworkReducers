@@ -17,7 +17,7 @@ import Foundation
 /// `Reloadable` feature needs to perform its logic and render its UI.
 @dynamicMemberLookup
 public struct ReloadableState<Data: Equatable & Codable, ErrorType: Error & Equatable>: Equatable {
-
+    
     // MARK: - Status
 
     public enum Status: Equatable, Codable {
@@ -73,7 +73,20 @@ public struct ReloadableState<Data: Equatable & Codable, ErrorType: Error & Equa
     
     // MARK: - Initializers
     
-    public init() {
+    public init(
+        status: ReloadableState<Data, ErrorType>.Status = .initial,
+        data: Data? = nil,
+        autoReloadingMode: ReloadableState<Data, ErrorType>.AutoReloadingType = .defered(),
+        reloadingAttemptsCount: Int = 0,
+        alertMode: ReloadableState<Data, ErrorType>.AlertMode = .onFailure(shoudDisplayOnReload: true),
+        shouldDisplayLoader: Bool = true
+    ) {
+        self.status = status
+        self.data = data
+        self.autoReloadingMode = autoReloadingMode
+        self.reloadingAttemptsCount = reloadingAttemptsCount
+        self.alertMode = alertMode
+        self.shouldDisplayLoader = shouldDisplayLoader
     }
 
     // MARK: - DynamicMemberLookup
