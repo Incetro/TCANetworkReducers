@@ -15,12 +15,12 @@ import Foundation
 /// Basically, `ReloadableState` is a type that describes the data
 /// `Reloadable` feature needs to perform its logic and render its UI.
 @dynamicMemberLookup
-public struct IDReloadableState<Data: Equatable & Codable & Identifiable, ErrorType: Error & Equatable>: Equatable {
+public struct IDReloadableState<Data: Equatable & Codable, ID: Equatable & Codable, ErrorType: Error & Equatable>: Equatable {
 
     // MARK: - Properties
 
     /// Identifier for loading
-    public var id: Data.ID
+    public var id: ID
 
     /// Reloadable composition instance
     public var reloadable = ReloadableState<Data, ErrorType>()
@@ -28,7 +28,7 @@ public struct IDReloadableState<Data: Equatable & Codable & Identifiable, ErrorT
     // MARK: - Initializers
     
     public init(
-        id: Data.ID,
+        id: ID,
         status: ReloadableState<Data, ErrorType>.Status = .initial,
         data: Data? = nil,
         autoReloadingMode: ReloadableState<Data, ErrorType>.AutoReloadingType = .defered(),
