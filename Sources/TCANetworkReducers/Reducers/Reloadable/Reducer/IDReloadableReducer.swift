@@ -28,7 +28,7 @@ public struct IDRelodableReducer<Data: Equatable & Codable, ID: Equatable & Coda
     
     public init(
         obtain: @escaping (ID) -> AnyPublisher<Data, ErrorType>,
-        cache: ((ID) -> AnyPublisher<Data?, ErrorType>)?
+        cache: ((ID) -> AnyPublisher<Data?, ErrorType>)? = nil
     ) {
         self.obtain = obtain
         self.cache = cache
