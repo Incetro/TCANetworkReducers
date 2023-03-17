@@ -11,7 +11,7 @@ import Combine
 
 // MARK: - Relodable
 
-public struct IDRelodableReducer<Data: Equatable & Codable & Identifiable, ErrorType: Error & Equatable>: ReducerProtocol {
+public struct IDRelodableReducer<Data: Equatable & Codable, ID: Equatable & Codable, ErrorType: Error & Equatable>: ReducerProtocol {
     
     // MARK: - Properties
     
@@ -19,16 +19,16 @@ public struct IDRelodableReducer<Data: Equatable & Codable & Identifiable, Error
     @Dependency(\.mainQueueScheduler) var mainQueue: AnySchedulerOf<DispatchQueue>
     
     /// Closure for loading target resource
-    public let obtain: (Data.ID) -> AnyPublisher<Data, ErrorType>
+    public let obtain: (ID) -> AnyPublisher<Data, ErrorType>
 
     /// Closure for cache obtating
-    public var cache: ((Data.ID) -> AnyPublisher<Data?, ErrorType>)?
+    public var cache: ((ID) -> AnyPublisher<Data?, ErrorType>)?
     
     // MARK: - Initializers
     
     public init(
-        obtain: @escaping (Data.ID) -> AnyPublisher<Data, ErrorType>,
-        cache: ((Data.ID) -> AnyPublisher<Data?, ErrorType>)?
+        obtain: @escaping (ID) -> AnyPublisher<Data, ErrorType>,
+        cache: ((ID) -> AnyPublisher<Data?, ErrorType>)?
     ) {
         self.obtain = obtain
         self.cache = cache
@@ -37,7 +37,7 @@ public struct IDRelodableReducer<Data: Equatable & Codable & Identifiable, Error
     // MARK: - ReducerProtocol
     
     public func reduce(
-       into state: inout IDReloadableState<Data, ErrorType>, action: ReloadableAction<Data, ErrorType>
+       into state: inout IDReloadableState<Data, ID, ErrorType>, action: ReloadableAction<Data, ErrorType>
     ) -> EffectTask<ReloadableAction<Data, ErrorType>> {
         switch action {
         case .load:
