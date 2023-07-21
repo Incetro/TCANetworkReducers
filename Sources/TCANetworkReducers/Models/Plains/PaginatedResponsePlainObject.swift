@@ -27,6 +27,16 @@ public struct PaginatedResponsePlainObject<Plain: Decodable & Equatable>: Equata
             nil
         }
     }
+    
+    // MARK: - Initializers
+    
+    public init(
+        pagination: PaginationMetadataPlainObject,
+        array: [Plain]
+    ) {
+        self.pagination = pagination
+        self.array = array
+    }
 
     // MARK: - Properties
 

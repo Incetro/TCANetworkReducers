@@ -59,6 +59,8 @@ public struct IDRelodableReducer<Data: Equatable & Codable, ID: Equatable & Coda
             if state.status == .loading {
                 state.data = data
             }
+        case .alertDismissed:
+            state.alert = nil
         case .reload:
             state.status = .reloading
             return .merge(
@@ -88,7 +90,10 @@ public struct IDRelodableReducer<Data: Equatable & Codable, ID: Equatable & Coda
                 return .value(.reload)
             case .defered(interval: let interval, attempts: let attempts):
                 state.reloadingAttemptsCount += 1
-                guard state.reloadingAttemptsCount < attempts else { return .none }
+                guard state.reloadingAttemptsCount < attempts else {
+                    state.status = .failure
+                    return .none
+                }
                 return .value(.reload)
                     .deferred(
                         for: DispatchQueue.SchedulerTimeType.Stride(floatLiteral: interval),
