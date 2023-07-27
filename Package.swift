@@ -18,7 +18,7 @@ let package = Package(
             targets: ["TCANetworkReducers"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/monession/TCA", .branch("master"))
+        .package(url: "https://github.com/monession/TCA", .branch("fix/identifier"))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
