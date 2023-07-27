@@ -36,40 +36,33 @@ public struct RandomCatFactView: View {
                     action: RandomCatFactAction.reloadableRandomFact
                 ),
                 loader: {
-                    ActivityIndicator()
+                    ActivityIndicator(color: .white)
                         .padding(16)
                         .background(.gray)
                         .cornerRadius(8)
                 }
             ) {
-                VStack {
-                    Text("here")
-                    Text(viewStore.factText)
-                    Button {
-                        viewStore.send(.getRandomFactButtonTapped)
-                    } label: {
-                        Text("Get other")
+                Form {
+                    Section(header: Text("")) {
+                        if let message = viewStore.randomCatFactResponse.message {
+                            Text(message)
+                                .font(.system(size: 17, weight: .bold))
+                        }
+                        Text(viewStore.factText)
+                        Button {
+                            viewStore.send(.getRandomFactButtonTapped)
+                        } label: {
+                            Text("Get new fact")
+                        }
+                        .disabled(!viewStore.isGetFactButtonActive)
                     }
+                    .textCase(nil)
                 }
+                .navigationTitle("Reloadable")
             }
             .onAppear {
                 viewStore.send(.onAppear)
             }
         }
-    }
-}
-
-// MARK: - Preview
-
-struct RandomCatFactView_Previews: PreviewProvider {
-    static var previews: some View {
-        RandomCatFactView(
-            store: Store(
-                initialState: RandomCatFactState(),
-                reducer: RandomCatFactFeature(
-                    catFactService: CatFactServiceImplementation()
-                )
-            )
-        )
     }
 }

@@ -6,12 +6,41 @@
 //
 
 import SwiftUI
+import TCA
+import ReloadableExample
+import BusinessLayer
 
 @main
 struct ReloadableExamplePreviewApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView {
+                RandomCatFactView(
+                    store: Store(
+                        initialState: RandomCatFactState(),
+                        reducer: RandomCatFactFeature(
+                            catFactService: CatFactServiceImplementation()
+                        )
+                    )
+                )
+            }
+        }
+    }
+}
+
+// MARK: - Preview
+
+struct RandomCatFactView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            RandomCatFactView(
+                store: Store(
+                    initialState: RandomCatFactState(),
+                    reducer: RandomCatFactFeature(
+                        catFactService: CatFactServiceImplementation()
+                    )
+                )
+            )
         }
     }
 }

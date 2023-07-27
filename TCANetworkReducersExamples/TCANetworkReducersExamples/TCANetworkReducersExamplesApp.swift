@@ -25,3 +25,18 @@ struct TCANetworkReducersExamplesApp: App {
         }
     }
 }
+
+// MARK: - Preview
+
+struct MainView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            MainView(
+                store: Store(
+                    initialState: MainState(),
+                    reducer: MainFeature()
+                )
+            )
+        }
+    }
+}

@@ -8,6 +8,7 @@
 import TCA
 import TCANetworkReducers
 import BusinessLayer
+import Foundation
 
 // MARK: - RandomCatFactFeature
 
@@ -31,6 +32,10 @@ public struct RandomCatFactFeature: ReducerProtocol {
                 catFactService
                     .obtainRandomFact()
                     .publish()
+            } cache: {
+                catFactService
+                    .readRandomFact()
+                    .publish()
             }
         }
         Reduce { state, action in
@@ -40,6 +45,10 @@ public struct RandomCatFactFeature: ReducerProtocol {
             case .getRandomFactButtonTapped:
                 return .value(.reloadableRandomFact(.reload))
             case .reloadableRandomFact(.response(.success(let plain))):
+                state.randomCatFactResponse = .network
+                state.factText = plain.text
+            case .reloadableRandomFact(.cacheResponse(.success(let plain))):
+                state.randomCatFactResponse = .cache
                 state.factText = plain.text
             default:
                 break
