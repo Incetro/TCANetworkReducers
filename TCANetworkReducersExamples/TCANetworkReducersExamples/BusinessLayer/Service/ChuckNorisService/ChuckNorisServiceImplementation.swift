@@ -26,14 +26,7 @@ public final class ChuckNorisServiceImplementation: WebService {
     // MARK: - Initializer
     
     public init() {
-        chuckNorisDAO = ChuckNorisDAO(
-            storage: RealmStorage<ChuckNorisModelObject>(
-                configuration: Dependency(\.realmConfiguration).wrappedValue
-            ),
-            translator: Models.ChuckNorisTranslator(
-                configuration: Dependency(\.realmConfiguration).wrappedValue
-            )
-        )
+        chuckNorisDAO = Dependency(\.chuckNorisDAO).wrappedValue
         super.init(
             baseURL: URL(string: "https://api.chucknorris.io").unsafelyUnwrapped,
             transport: HTTPTransport()
@@ -76,18 +69,4 @@ extension ChuckNorisServiceImplementation: ChuckNorisService {
             return .success(randomJoke)
         }
     }
-    
-    public func obtainRandomFacts(limit: Int) -> ServiceCall<[ChuckNorisPlainObject]> {
-        createCall {
-            return .success([])
-        }
-    }
-    
-    public func readRandomFacts(limit: Int) -> ServiceCall<[ChuckNorisPlainObject]?> {
-        createCall {
-            return .success(nil)
-        }
-    }
-    
-    
 }

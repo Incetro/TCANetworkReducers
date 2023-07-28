@@ -20,7 +20,7 @@ public final class ChuckNorisTranslator {
     public typealias DatabaseModel = ChuckNorisModelObject
     
     /// ChuckNoris storage
-    private lazy var catFactsStorage = RealmStorage<ChuckNorisModelObject>(configuration: self.configuration)
+    private lazy var chuckNorisStorage = RealmStorage<ChuckNorisModelObject>(configuration: self.configuration)
     
     /// RealmConfiguration instance
     private let configuration: RealmConfiguration
@@ -47,7 +47,7 @@ extension ChuckNorisTranslator: Translator {
     }
     
     public func translate(plain: PlainModel) throws -> DatabaseModel {
-        let model = try catFactsStorage.read(byPrimaryKey: plain.uniqueId.rawValue) ?? DatabaseModel()
+        let model = try chuckNorisStorage.read(byPrimaryKey: plain.uniqueId.rawValue) ?? DatabaseModel()
         try translate(from: plain, to: model)
         return model
     }

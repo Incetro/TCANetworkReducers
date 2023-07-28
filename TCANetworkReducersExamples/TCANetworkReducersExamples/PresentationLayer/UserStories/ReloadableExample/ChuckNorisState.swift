@@ -58,7 +58,7 @@ public struct ChuckNorisState: Equatable {
     // MARK: - Reloadable
     
     /// Reloadable state instance
-    public var reloadableChuckNoris = ReloadableState<ChuckNorisPlainObject, ChuckNorisError>(shouldDisplayLoaderWhileReloading: true)
+    public var reloadableChuckNoris = ReloadableState<ChuckNorisPlainObject, ChuckNorisError>(shouldDisplayLoaderOnReloading: true)
 }
 
 // MARK: - Initializer

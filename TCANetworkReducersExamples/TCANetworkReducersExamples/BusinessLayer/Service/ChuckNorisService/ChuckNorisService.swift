@@ -28,12 +28,4 @@ public protocol ChuckNorisService {
     /// Read random fact from local db
     /// - Returns: random cat fact plain object if exist
     func readRandomJoke() -> ServiceCall<ChuckNorisPlainObject?>
-    
-//    /// Obtain random facts
-//    /// - Returns: array of random cat facts plain objects
-//    func obtainRandomFacts(limit: Int) -> ServiceCall<[ChuckNorisPlainObject]>
-//    
-//    /// Read random facts from local db
-//    /// - Returns: array of random cat facts plain objects if exists
-//    func readRandomFacts(limit: Int) -> ServiceCall<[ChuckNorisPlainObject]?>
 }

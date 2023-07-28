@@ -64,11 +64,11 @@ public struct ReloadableState<Data: Equatable & Codable, ErrorType: Error & Equa
     public var shouldDisplayLoader = true
     
     /// True if loader shoud be displayed while status is `reloading`
-    public var shouldDisplayLoaderWhileReloading = false
+    public var shouldDisplayLoaderOnReloading = false
 
     /// Current loader displaying status
     public var isLoaderDisplayed: Bool {
-        (status == .loading && shouldDisplayLoader) || (status == .reloading && shouldDisplayLoaderWhileReloading)
+        (status == .loading && shouldDisplayLoader) || (status == .reloading && shouldDisplayLoaderOnReloading)
     }
 
     /// Alert state value
@@ -83,7 +83,7 @@ public struct ReloadableState<Data: Equatable & Codable, ErrorType: Error & Equa
         reloadingAttemptsCount: Int = 0,
         alertMode: ReloadableState<Data, ErrorType>.AlertMode = .onFailure(shoudDisplayOnReload: true),
         shouldDisplayLoader: Bool = true,
-        shouldDisplayLoaderWhileReloading: Bool = false
+        shouldDisplayLoaderOnReloading: Bool = false
     ) {
         self.status = status
         self.data = data
@@ -91,7 +91,7 @@ public struct ReloadableState<Data: Equatable & Codable, ErrorType: Error & Equa
         self.reloadingAttemptsCount = reloadingAttemptsCount
         self.alertMode = alertMode
         self.shouldDisplayLoader = shouldDisplayLoader
-        self.shouldDisplayLoaderWhileReloading = shouldDisplayLoaderWhileReloading
+        self.shouldDisplayLoaderOnReloading = shouldDisplayLoaderOnReloading
     }
 
     // MARK: - DynamicMemberLookup
