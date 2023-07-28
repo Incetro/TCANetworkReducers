@@ -1,6 +1,6 @@
 //
 //  ChuckNorisState.swift
-//  AllThings
+//  TCANetworkReducersExamples
 //
 //  Created by Gleb Kovalenko on 24.07.2023.
 //
