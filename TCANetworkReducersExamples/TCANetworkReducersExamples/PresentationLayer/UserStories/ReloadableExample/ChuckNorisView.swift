@@ -43,7 +43,7 @@ public struct ChuckNorisView: View {
                 }
             ) {
                 Form {
-                    Section(header: Text("")) {
+                    Section(header: Text(Constants.summary).font(.system(size: 17))) {
                         if let message = viewStore.chuckNorisResponse.message {
                             Text(message)
                                 .font(.system(size: 17, weight: .bold))
@@ -64,5 +64,21 @@ public struct ChuckNorisView: View {
                 viewStore.send(.onAppear)
             }
         }
+    }
+}
+
+// MARK: - Constants
+
+extension ChuckNorisView {
+    
+    enum Constants {
+        
+        static let summary = """
+        This screen shows the simplest example of using a ReloadableReducer
+        
+        If the request has not yet arrived, the reduser tries to take data from the database (if exist).
+        As soon as the response from the network has arrived, the result is shown on the screen
+        
+        """
     }
 }
