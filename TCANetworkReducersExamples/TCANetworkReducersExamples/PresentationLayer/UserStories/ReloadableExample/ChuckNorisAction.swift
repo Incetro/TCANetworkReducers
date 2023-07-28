@@ -1,5 +1,5 @@
 //
-//  RandomCatFactAction.swift
+//  ChuckNorisAction.swift
 //  AllThings
 //
 //  Created by Gleb Kovalenko on 24.07.2023.
@@ -8,9 +8,9 @@
 import TCANetworkReducers
 import Models
 
-// MARK: - RandomCatFactAction
+// MARK: - ChuckNorisAction
 
-public enum RandomCatFactAction: Equatable {
+public enum ChuckNorisAction: Equatable {
     
     // MARK: - Cases
     
@@ -26,9 +26,5 @@ public enum RandomCatFactAction: Equatable {
     // MARK: - Reloadable
     
     /// Reloadable action instance
-    case reloadableRandomFact(ReloadableAction<CatFactPlainObject, CatFactError>)
-    
-    // MARK: - Service
-    
-    case catFactsService
+    case reloadableChuckNoris(ReloadableAction<ChuckNorisPlainObject, ChuckNorisError>)
 }

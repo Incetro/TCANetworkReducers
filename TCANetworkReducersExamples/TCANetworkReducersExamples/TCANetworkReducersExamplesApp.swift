@@ -17,7 +17,7 @@ struct TCANetworkReducersExamplesApp: App {
                 MainView(
                     store: Store(
                         initialState: MainState(),
-                        reducer: MainFeature()
+                        reducer: MainReducer()
                     )
                 )
             }
@@ -34,7 +34,7 @@ struct MainView_Previews: PreviewProvider {
             MainView(
                 store: Store(
                     initialState: MainState(),
-                    reducer: MainFeature()
+                    reducer: MainReducer()
                 )
             )
         }

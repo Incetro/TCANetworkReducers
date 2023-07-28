@@ -1,26 +1,26 @@
 //
-//  CatFactsTranslator.swift
+//  ChuckNorisTranslator.swift
 //  BusinessLayer
 //
 //  Created by Gleb Kovalenko on 27.07.2023.
 //
 
 import SDAO
-import Monreau
 import Models
+import Monreau
 import Foundation
 
-// MARK: - CatFactsTranslator
+// MARK: - ChuckNorisTranslator
 
-public final class CatFactsTranslator {
+public final class ChuckNorisTranslator {
     
     // MARK: - Aliases
     
-    public typealias PlainModel = CatFactPlainObject
-    public typealias DatabaseModel = CatFactModelObject
+    public typealias PlainModel = ChuckNorisPlainObject
+    public typealias DatabaseModel = ChuckNorisModelObject
     
-    /// CatFacts storage
-    private lazy var catFactsStorage = RealmStorage<CatFactModelObject>(configuration: self.configuration)
+    /// ChuckNoris storage
+    private lazy var catFactsStorage = RealmStorage<ChuckNorisModelObject>(configuration: self.configuration)
     
     /// RealmConfiguration instance
     private let configuration: RealmConfiguration
@@ -37,11 +37,12 @@ public final class CatFactsTranslator {
 
 // MARK: - Translator
 
-extension CatFactsTranslator: Translator {
+extension ChuckNorisTranslator: Translator {
     
     public func translate(model: DatabaseModel) throws -> PlainModel {
-        CatFactPlainObject(
-            text: model.text
+        ChuckNorisPlainObject(
+            id: model.id,
+            value: model.value
         )
     }
     
@@ -55,6 +56,7 @@ extension CatFactsTranslator: Translator {
         if databaseModel.uniqueId.isEmpty {
             databaseModel.uniqueId = plain.uniqueId.rawValue
         }
-        databaseModel.text = plain.text
+        databaseModel.id = plain.id
+        databaseModel.value = plain.value
     }
 }

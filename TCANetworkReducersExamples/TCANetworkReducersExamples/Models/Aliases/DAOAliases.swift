@@ -9,4 +9,4 @@ import Foundation
 import SDAO
 import Monreau
 
-public typealias CatFactsDAO = DAO<RealmStorage<CatFactModelObject>, CatFactsTranslator>
+public typealias ChuckNorisDAO = DAO<RealmStorage<ChuckNorisModelObject>, ChuckNorisTranslator>

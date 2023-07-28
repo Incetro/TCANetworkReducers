@@ -1,5 +1,5 @@
 //
-//  RandomCatFactView.swift
+//  ChuckNorisView.swift
 //  AllThings
 //
 //  Created by Gleb Kovalenko on 24.07.2023.
@@ -11,18 +11,18 @@ import BusinessLayer
 import PresentationLayer
 import TCANetworkReducers
 
-// MARK: - RandomCatFactView
+// MARK: - ChuckNorisView
 
-public struct RandomCatFactView: View {
+public struct ChuckNorisView: View {
     
     // MARK: - Properties
     
-    /// The store powering the `RandomCatFact` feature
-    public let store: StoreOf<RandomCatFactFeature>
+    /// The store powering the `ChuckNoris` feature
+    public let store: StoreOf<ChuckNorisReducer>
     
     // MARK: - Initializer
     
-    public init(store: StoreOf<RandomCatFactFeature>) {
+    public init(store: StoreOf<ChuckNorisReducer>) {
         self.store = store
     }
     
@@ -32,8 +32,8 @@ public struct RandomCatFactView: View {
         WithViewStore(store) { viewStore in
             ReloadableView(
                 store: store.scope(
-                    state: \.reloadableRandomFact,
-                    action: RandomCatFactAction.reloadableRandomFact
+                    state: \.reloadableChuckNoris,
+                    action: ChuckNorisAction.reloadableChuckNoris
                 ),
                 loader: {
                     ActivityIndicator(color: .white)
@@ -44,15 +44,15 @@ public struct RandomCatFactView: View {
             ) {
                 Form {
                     Section(header: Text("")) {
-                        if let message = viewStore.randomCatFactResponse.message {
+                        if let message = viewStore.chuckNorisResponse.message {
                             Text(message)
                                 .font(.system(size: 17, weight: .bold))
                         }
-                        Text(viewStore.factText)
+                        Text(viewStore.jokeText)
                         Button {
                             viewStore.send(.getRandomFactButtonTapped)
                         } label: {
-                            Text("Get new fact")
+                            Text("Get new joke")
                         }
                         .disabled(!viewStore.isGetFactButtonActive)
                     }

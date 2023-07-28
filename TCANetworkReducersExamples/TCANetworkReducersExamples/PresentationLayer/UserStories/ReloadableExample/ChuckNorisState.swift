@@ -1,5 +1,5 @@
 //
-//  RandomCatFactState.swift
+//  ChuckNorisState.swift
 //  AllThings
 //
 //  Created by Gleb Kovalenko on 24.07.2023.
@@ -9,13 +9,13 @@ import TCA
 import TCANetworkReducers
 import Models
 
-// MARK: - RandomCatFactState
+// MARK: - ChuckNorisState
 
-public struct RandomCatFactState: Equatable {
+public struct ChuckNorisState: Equatable {
     
-    // MARK: - RandomCatFactResponse
+    // MARK: - ChuckNorisResponse
     
-    public enum RandomCatFactResponse {
+    public enum ChuckNorisResponse {
         
         // MARK: - Cases
         
@@ -39,34 +39,34 @@ public struct RandomCatFactState: Equatable {
     
     // MARK: - Properties
     
-    /// Fact text instance
-    public var factText: String
+    /// Joke text instance
+    public var jokeText: String
     
     /// Indicates which response is got(just for clarity)
-    public var randomCatFactResponse: RandomCatFactResponse
+    public var chuckNorisResponse: ChuckNorisResponse
     
     /// Indicates which `GetFact` button active
     public var isGetFactButtonActive: Bool {
-        reloadableRandomFact.status != .loading && reloadableRandomFact.status != .reloading
+        reloadableChuckNoris.status != .loading && reloadableChuckNoris.status != .reloading
     }
     
     // MARK: - Children
     
     /// Alert state value
-    public var alert: AlertState<RandomCatFactAction>?
+    public var alert: AlertState<ChuckNorisAction>?
     
     // MARK: - Reloadable
     
     /// Reloadable state instance
-    public var reloadableRandomFact = ReloadableState<CatFactPlainObject, CatFactError>(shouldDisplayLoaderWhileReloading: true)
+    public var reloadableChuckNoris = ReloadableState<ChuckNorisPlainObject, ChuckNorisError>(shouldDisplayLoaderWhileReloading: true)
 }
 
 // MARK: - Initializer
 
-extension RandomCatFactState {
+extension ChuckNorisState {
     
     public init() {
-        self.factText = ""
-        self.randomCatFactResponse = .none
+        self.jokeText = ""
+        self.chuckNorisResponse = .none
     }
 }

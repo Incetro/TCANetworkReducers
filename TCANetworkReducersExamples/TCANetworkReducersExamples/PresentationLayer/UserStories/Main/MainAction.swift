@@ -18,5 +18,5 @@ public enum MainAction: Equatable {
     /// It's necessary as we use `Scope` reducer in current module's reducer.
     /// In short, the `reloadableExample` case means that every action in `ReloadableExample` module
     /// will be sent to current module through it
-    case reloadableExample(RandomCatFactAction)
+    case reloadableExample(ChuckNorisAction)
 }

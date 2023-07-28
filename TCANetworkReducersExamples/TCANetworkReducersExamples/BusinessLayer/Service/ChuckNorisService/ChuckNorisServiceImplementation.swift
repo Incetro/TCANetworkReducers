@@ -1,5 +1,5 @@
 //
-//  CatFactServiceImplementation.swift
+//  ChuckNorisServiceImplementation.swift
 //  ReloadableExample
 //
 //  Created by Gleb Kovalenko on 27.07.2023.
@@ -14,28 +14,28 @@ import Models
 import TCA
 import Monreau
 
-// MARK: - CatFactServiceImplementation
+// MARK: - ChuckNorisServiceImplementation
 
-public final class CatFactServiceImplementation: WebService {
+public final class ChuckNorisServiceImplementation: WebService {
     
     // MARK: - Properties
     
-    /// `CatFacts` dao instance
-    public let catFactsDAO: CatFactsDAO
+    /// `ChuckNoris` dao instance
+    public let chuckNorisDAO: ChuckNorisDAO
     
     // MARK: - Initializer
     
     public init() {
-        catFactsDAO = CatFactsDAO(
-            storage: RealmStorage<CatFactModelObject>(
+        chuckNorisDAO = ChuckNorisDAO(
+            storage: RealmStorage<ChuckNorisModelObject>(
                 configuration: Dependency(\.realmConfiguration).wrappedValue
             ),
-            translator: Models.CatFactsTranslator(
+            translator: Models.ChuckNorisTranslator(
                 configuration: Dependency(\.realmConfiguration).wrappedValue
             )
         )
         super.init(
-            baseURL: URL(string: "https://cat-fact.herokuapp.com").unsafelyUnwrapped,
+            baseURL: URL(string: "https://api.chucknorris.io").unsafelyUnwrapped,
             transport: HTTPTransport()
         )
     }
@@ -43,13 +43,13 @@ public final class CatFactServiceImplementation: WebService {
 
 // MARK: - CatService
 
-extension CatFactServiceImplementation: CatFactService {
+extension ChuckNorisServiceImplementation: ChuckNorisService {
     
-    public func obtainRandomFact() -> ServiceCall<CatFactPlainObject> {
+    public func obtainRandomJoke() -> ServiceCall<ChuckNorisPlainObject> {
         createCall {
             let request = HTTPRequest(
                 httpMethod: .get,
-                endpoint: "/facts/random",
+                endpoint: "/jokes/random",
                 base: self.baseRequest
             )
             let result = self.transport.send(request: request)
@@ -57,9 +57,9 @@ extension CatFactServiceImplementation: CatFactService {
             case .success(let response):
                 do {
                     let data = response.body.unsafelyUnwrapped
-                    let result = try data.decoded() as CatFactPlainObject
-                    try self.catFactsDAO.erase()
-                    try self.catFactsDAO.persist(result)
+                    let result = try data.decoded() as ChuckNorisPlainObject
+                    try self.chuckNorisDAO.erase()
+                    try self.chuckNorisDAO.persist(result)
                     return .success(result)
                 } catch {
                     return .failure(error)
@@ -70,20 +70,20 @@ extension CatFactServiceImplementation: CatFactService {
         }
     }
     
-    public func readRandomFact() -> ServiceCall<CatFactPlainObject?> {
+    public func readRandomJoke() -> ServiceCall<ChuckNorisPlainObject?> {
         createCall {
-            let catFact = try self.catFactsDAO.read().first
-            return .success(catFact)
+            let randomJoke = try self.chuckNorisDAO.read().first
+            return .success(randomJoke)
         }
     }
     
-    public func obtainRandomFacts(limit: Int) -> ServiceCall<[CatFactPlainObject]> {
+    public func obtainRandomFacts(limit: Int) -> ServiceCall<[ChuckNorisPlainObject]> {
         createCall {
             return .success([])
         }
     }
     
-    public func readRandomFacts(limit: Int) -> ServiceCall<[CatFactPlainObject]?> {
+    public func readRandomFacts(limit: Int) -> ServiceCall<[ChuckNorisPlainObject]?> {
         createCall {
             return .success(nil)
         }

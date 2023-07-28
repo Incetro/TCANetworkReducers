@@ -16,11 +16,11 @@ public struct MainView: View {
     // MARK: - Properties
     
     /// The store powering the `Main` feature
-    public let store: StoreOf<MainFeature>
+    public let store: StoreOf<MainReducer>
     
     // MARK: - Initializer
     
-    public init(store: StoreOf<MainFeature>) {
+    public init(store: StoreOf<MainReducer>) {
         self.store = store
     }
     
@@ -31,7 +31,7 @@ public struct MainView: View {
             Form {
                 Section(header: Text("Reloadable")) {
                     NavigationLink(
-                        destination: RandomCatFactView(
+                        destination: ChuckNorisView(
                             store: store.scope(
                                 state: \.reloadableExample,
                                 action: MainAction.reloadableExample

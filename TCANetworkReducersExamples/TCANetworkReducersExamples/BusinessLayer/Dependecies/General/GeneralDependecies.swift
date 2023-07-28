@@ -27,7 +27,7 @@ extension DependencyValues {
     private enum RealmConfigurationKey: DependencyKey {
         static let liveValue = RealmConfiguration(
             databaseFileName: "NetworkReducers.realm",
-            databaseVersion: 1,
+            databaseVersion: 2,
             migrationBlock: { migration, oldSchemaVersion in
             }
         )

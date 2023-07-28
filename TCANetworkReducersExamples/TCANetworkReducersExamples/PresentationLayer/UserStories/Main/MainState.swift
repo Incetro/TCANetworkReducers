@@ -19,7 +19,7 @@ public struct MainState: Equatable {
     /// We use it here to be able to integrate `reloadableExample` feature into a current module logic.
     /// All necessary processing is placed inside current reducer. Also, if you change the state
     /// inside the `reloadableExample` module all changes will be saved here.
-    public var reloadableExample: RandomCatFactState
+    public var reloadableExample: ChuckNorisState
 }
 
 // MARK: - Initializer
@@ -27,6 +27,6 @@ public struct MainState: Equatable {
 extension MainState {
     
     public init() {
-        reloadableExample = RandomCatFactState()
+        reloadableExample = ChuckNorisState()
     }
 }

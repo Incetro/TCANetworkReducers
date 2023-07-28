@@ -15,11 +15,11 @@ struct ReloadableExamplePreviewApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                RandomCatFactView(
+                ChuckNorisView(
                     store: Store(
-                        initialState: RandomCatFactState(),
-                        reducer: RandomCatFactFeature(
-                            catFactService: CatFactServiceImplementation()
+                        initialState: ChuckNorisState(),
+                        reducer: ChuckNorisReducer(
+                            chuckNorisService: ChuckNorisServiceImplementation()
                         )
                     )
                 )
@@ -30,14 +30,14 @@ struct ReloadableExamplePreviewApp: App {
 
 // MARK: - Preview
 
-struct RandomCatFactView_Previews: PreviewProvider {
+struct ChuckNorisView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            RandomCatFactView(
+            ChuckNorisView(
                 store: Store(
-                    initialState: RandomCatFactState(),
-                    reducer: RandomCatFactFeature(
-                        catFactService: CatFactServiceImplementation()
+                    initialState: ChuckNorisState(),
+                    reducer: ChuckNorisReducer(
+                        chuckNorisService: ChuckNorisServiceImplementation()
                     )
                 )
             )
