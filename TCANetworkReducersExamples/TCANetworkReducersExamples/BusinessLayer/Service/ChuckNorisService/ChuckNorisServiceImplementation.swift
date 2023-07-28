@@ -21,12 +21,11 @@ public final class ChuckNorisServiceImplementation: WebService {
     // MARK: - Properties
     
     /// `ChuckNoris` dao instance
-    public let chuckNorisDAO: ChuckNorisDAO
+    @Dependency(\.chuckNorisDAO) var chuckNorisDAO
     
     // MARK: - Initializer
     
     public init() {
-        chuckNorisDAO = Dependency(\.chuckNorisDAO).wrappedValue
         super.init(
             baseURL: URL(string: "https://api.chucknorris.io").unsafelyUnwrapped,
             transport: HTTPTransport()
