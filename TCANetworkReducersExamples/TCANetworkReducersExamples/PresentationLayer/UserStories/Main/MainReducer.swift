@@ -1,5 +1,5 @@
 //
-//  MainFeature.swift
+//  MainReducer.swift
 //  TCANetworkReducersExamples
 //
 //  Created by Gleb Kovalenko on 26.07.2023.
@@ -9,9 +9,9 @@ import TCA
 import ReloadableExample
 import BusinessLayer
 
-// MARK: - MainFeature
+// MARK: - MainReducer
 
-public struct MainFeature: ReducerProtocol {
+public struct MainReducer: ReducerProtocol {
     
     // MARK: - Initializer
     
@@ -21,8 +21,8 @@ public struct MainFeature: ReducerProtocol {
     
     public var body: some ReducerProtocol<MainState, MainAction> {
         Scope(state: \.reloadableExample, action: /MainAction.reloadableExample) {
-            RandomCatFactFeature(
-                catFactService: CatFactServiceImplementation()
+            ChuckNorisReducer(
+                chuckNorisService: ChuckNorisServiceImplementation()
             )
         }
         Reduce { state, action in

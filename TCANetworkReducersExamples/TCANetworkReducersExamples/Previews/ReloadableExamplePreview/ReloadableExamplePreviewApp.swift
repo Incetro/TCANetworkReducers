@@ -6,12 +6,41 @@
 //
 
 import SwiftUI
+import TCA
+import ReloadableExample
+import BusinessLayer
 
 @main
 struct ReloadableExamplePreviewApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView {
+                ChuckNorisView(
+                    store: Store(
+                        initialState: ChuckNorisState(),
+                        reducer: ChuckNorisReducer(
+                            chuckNorisService: ChuckNorisServiceImplementation()
+                        )
+                    )
+                )
+            }
+        }
+    }
+}
+
+// MARK: - Preview
+
+struct ChuckNorisView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            ChuckNorisView(
+                store: Store(
+                    initialState: ChuckNorisState(),
+                    reducer: ChuckNorisReducer(
+                        chuckNorisService: ChuckNorisServiceImplementation()
+                    )
+                )
+            )
         }
     }
 }

@@ -16,11 +16,11 @@ public struct MainView: View {
     // MARK: - Properties
     
     /// The store powering the `Main` feature
-    public let store: StoreOf<MainFeature>
+    public let store: StoreOf<MainReducer>
     
     // MARK: - Initializer
     
-    public init(store: StoreOf<MainFeature>) {
+    public init(store: StoreOf<MainReducer>) {
         self.store = store
     }
     
@@ -31,14 +31,14 @@ public struct MainView: View {
             Form {
                 Section(header: Text("Reloadable")) {
                     NavigationLink(
-                        destination: RandomCatFactView(
+                        destination: ChuckNorisView(
                             store: store.scope(
                                 state: \.reloadableExample,
                                 action: MainAction.reloadableExample
                             )
                         )
                     ) {
-                        Text("Deafult reloadable")
+                        Text("Default reloadable")
                             .font(.system(size: 17, design: .default))
                     }
                     NavigationLink(
@@ -78,19 +78,7 @@ public struct MainView: View {
                     }
                 }
             }
+            .navigationTitle("NetworkReducers")
         }
-    }
-}
-
-// MARK: - Preview
-
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainView(
-            store: Store(
-                initialState: MainState(),
-                reducer: MainFeature()
-            )
-        )
     }
 }
