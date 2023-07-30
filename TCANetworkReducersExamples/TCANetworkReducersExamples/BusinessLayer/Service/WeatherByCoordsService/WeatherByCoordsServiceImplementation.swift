@@ -24,7 +24,7 @@ public final class WeatherByCoordsServiceImplementation: WebService {
     @Dependency(\.weatherByCoordsDAO) var weatherByCoordsDAO
     
     /// Your api key for air visual api (see https://www.iqair.com/)
-    public let apiKey: String = "YOUR API KEY"
+    private let apiKey: String = "YOUR API KEY"
     
     // MARK: - Initializer
     
@@ -60,9 +60,6 @@ extension WeatherByCoordsServiceImplementation: WeatherByCoordsService {
             switch result {
             case .success(let response):
                 do {
-                    if try response.getJSONDictionary()?["status"] as? String == "fail" {
-                        return .failure(NSError())
-                    }
                     let json = try response.getJSONDictionary()?["data"]
                     let data = try JSONSerialization.data(withJSONObject: json as Any)
                     let result = try data.decoded() as WeatherByCoordsPlainObject
@@ -84,6 +81,4 @@ extension WeatherByCoordsServiceImplementation: WeatherByCoordsService {
             return .success(weather)
         }
     }
-    
-    
 }
