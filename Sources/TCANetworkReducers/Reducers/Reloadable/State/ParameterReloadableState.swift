@@ -1,5 +1,5 @@
 //
-//  IDReloadableState.swift
+//  ParameterReloadableState.swift
 //  Ruvpro
 //
 //  Created by incetro on 7/17/22.
@@ -10,17 +10,21 @@ import Foundation
 
 // MARK: - IDReloadableState
 
+public typealias IDReloadableState<Data: Equatable & Codable, ID: Equatable & Codable, ErrorType: Error & Equatable> = ParameterReloadableState<Data, ID, ErrorType>
+
+// MARK: - ParameterReloadableState
+
 /// `Reloadable` module state
 ///
 /// Basically, `ReloadableState` is a type that describes the data
 /// `Reloadable` feature needs to perform its logic and render its UI.
 @dynamicMemberLookup
-public struct IDReloadableState<Data: Equatable & Codable, ID: Equatable & Codable, ErrorType: Error & Equatable>: Equatable {
+public struct ParameterReloadableState<Data: Equatable & Codable, Parameter: Equatable & Codable, ErrorType: Error & Equatable>: Equatable {
 
     // MARK: - Properties
 
     /// Identifier for loading
-    public var id: ID
+    public var id: Parameter
 
     /// Reloadable composition instance
     public var reloadable = ReloadableState<Data, ErrorType>()
@@ -28,7 +32,7 @@ public struct IDReloadableState<Data: Equatable & Codable, ID: Equatable & Codab
     // MARK: - Initializers
     
     public init(
-        id: ID,
+        id: Parameter,
         status: ReloadableState<Data, ErrorType>.Status = .initial,
         data: Data? = nil,
         autoReloadingMode: ReloadableState<Data, ErrorType>.AutoReloadingType = .defered(),

@@ -9,5 +9,5 @@ import Foundation
 
 // MARK: - Alias
 
-/// Cat fact module error
+/// `ChuckNoris` module error
 public typealias ChuckNorisError = NSError

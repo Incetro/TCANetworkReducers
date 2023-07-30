@@ -8,6 +8,7 @@
 import SwiftUI
 import TCA
 import ReloadableExample
+import ParameterReloadableExample
 
 // MARK: - MainView
 
@@ -42,9 +43,12 @@ public struct MainView: View {
                             .font(.system(size: 17, design: .default))
                     }
                     NavigationLink(
-                        destination: {
-                            Text("Parameter reloadable")
-                        }
+                        destination: WeatherByCoordsView(
+                            store: store.scope(
+                                state: \.parameterReloadableExample,
+                                action: MainAction.parameterReloadableExample
+                            )
+                        )
                     ) {
                         Text("Parameter reloadable")
                             .font(.system(size: 17, design: .default))

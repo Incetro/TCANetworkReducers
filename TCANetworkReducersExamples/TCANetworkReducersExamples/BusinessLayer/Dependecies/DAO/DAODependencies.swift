@@ -35,4 +35,26 @@ extension DependencyValues {
             )
         )
     }
+    
+    // MARK: - WeatherByCoords
+    
+    /// The current `WeatherByCoordsDAO` that features should use when handling interactions.
+    public var weatherByCoordsDAO: WeatherByCoordsDAO {
+        get { self[WeatherByCoordsDAOKey.self] }
+        set { self[WeatherByCoordsDAOKey.self] = newValue }
+    }
+    
+    // MARK: - DependencyKey
+    
+    /// Dependecy key for `WeatherByCoordsDAO` instance
+    private enum WeatherByCoordsDAOKey: DependencyKey {
+        static let liveValue = WeatherByCoordsDAO(
+            storage: RealmStorage<WeatherByCoordsModelObject>(
+                configuration: Dependency(\.realmConfiguration).wrappedValue
+            ),
+            translator: Models.WeatherByCoordsTranslator(
+                configuration: Dependency(\.realmConfiguration).wrappedValue
+            )
+        )
+    }
 }

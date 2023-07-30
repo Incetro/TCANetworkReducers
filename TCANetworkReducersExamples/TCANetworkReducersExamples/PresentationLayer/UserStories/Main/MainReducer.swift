@@ -7,6 +7,7 @@
 
 import TCA
 import ReloadableExample
+import ParameterReloadableExample
 import BusinessLayer
 
 // MARK: - MainReducer
@@ -23,6 +24,11 @@ public struct MainReducer: ReducerProtocol {
         Scope(state: \.reloadableExample, action: /MainAction.reloadableExample) {
             ChuckNorisReducer(
                 chuckNorisService: ChuckNorisServiceImplementation()
+            )
+        }
+        Scope(state: \.parameterReloadableExample, action: /MainAction.parameterReloadableExample) {
+            WeatherByCoordsReducer(
+                weatherByCoordsService: WeatherByCoordsServiceImplementation()
             )
         }
         Reduce { state, action in

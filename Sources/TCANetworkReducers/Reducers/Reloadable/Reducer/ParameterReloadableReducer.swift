@@ -1,5 +1,5 @@
 //
-//  IDReloadableReducer.swift
+//  ParameterReloadableReducer.swift
 //  Chibiverse
 //
 //  Created by Dmitry Savinov on 07.03.2023.
@@ -9,9 +9,13 @@ import TCA
 import Foundation
 import Combine
 
-// MARK: - Relodable
+// MARK: - IDRelodableReducer
 
-public struct IDRelodableReducer<Data: Equatable & Codable, ID: Equatable & Codable, ErrorType: Error & Equatable>: ReducerProtocol {
+public typealias IDRelodableReducer<Data: Equatable & Codable, ID: Equatable & Codable, ErrorType: Error & Equatable> = ParameterRelodableReducer<Data, ID, ErrorType>
+
+// MARK: - ParameterRelodableReducer
+
+public struct ParameterRelodableReducer<Data: Equatable & Codable, Parameter: Equatable & Codable, ErrorType: Error & Equatable>: ReducerProtocol {
     
     // MARK: - Properties
     
@@ -19,16 +23,16 @@ public struct IDRelodableReducer<Data: Equatable & Codable, ID: Equatable & Coda
     @Dependency(\.mainQueueScheduler) var mainQueue: AnySchedulerOf<DispatchQueue>
     
     /// Closure for loading target resource
-    public let obtain: (ID) -> AnyPublisher<Data, ErrorType>
+    public let obtain: (Parameter) -> AnyPublisher<Data, ErrorType>
 
     /// Closure for cache obtating
-    public var cache: ((ID) -> AnyPublisher<Data?, ErrorType>)?
+    public let cache: ((Parameter) -> AnyPublisher<Data?, ErrorType>)?
     
     // MARK: - Initializers
     
     public init(
-        obtain: @escaping (ID) -> AnyPublisher<Data, ErrorType>,
-        cache: ((ID) -> AnyPublisher<Data?, ErrorType>)? = nil
+        obtain: @escaping (Parameter) -> AnyPublisher<Data, ErrorType>,
+        cache: ((Parameter) -> AnyPublisher<Data?, ErrorType>)? = nil
     ) {
         self.obtain = obtain
         self.cache = cache
@@ -37,7 +41,7 @@ public struct IDRelodableReducer<Data: Equatable & Codable, ID: Equatable & Coda
     // MARK: - ReducerProtocol
     
     public func reduce(
-       into state: inout IDReloadableState<Data, ID, ErrorType>, action: ReloadableAction<Data, ErrorType>
+       into state: inout ParameterReloadableState<Data, Parameter, ErrorType>, action: ReloadableAction<Data, ErrorType>
     ) -> EffectTask<ReloadableAction<Data, ErrorType>> {
         switch action {
         case .load:

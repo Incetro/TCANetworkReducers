@@ -10,3 +10,5 @@ import SDAO
 import Monreau
 
 public typealias ChuckNorisDAO = DAO<RealmStorage<ChuckNorisModelObject>, ChuckNorisTranslator>
+
+public typealias WeatherByCoordsDAO = DAO<RealmStorage<WeatherByCoordsModelObject>, WeatherByCoordsTranslator>

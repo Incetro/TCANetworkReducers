@@ -1,5 +1,5 @@
 //
-//  IDReloadableView.swift
+//  ParameterReloadableView.swift
 //  
 //
 //  Created by Gleb Kovalenko on 13.03.2023.
@@ -10,14 +10,24 @@ import SwiftUI
 
 // MARK: - IDReloadableView
 
-/// A visual representation of `Reloadable` module.
-/// Here we define the view that displays the feature.
-/// It holds onto a `Store<IDReloadableState, ReloadableAction>` so that it can observe
-/// all changes to the state and re-render, and we can send all user actions
-/// to the store so that state changes.
-public struct IDReloadableView<
+public typealias IDReloadableView<
     Data: Equatable & Codable,
     ID: Equatable & Codable,
+    ErrorType: Error & Equatable,
+    Content: View,
+    Loader: View
+> = ParameterReloadableView<Data, ID, ErrorType, Content, Loader>
+
+// MARK: - ParameterReloadableView
+
+/// A visual representation of `Reloadable` module.
+/// Here we define the view that displays the feature.
+/// It holds onto a `Store<ParameterReloadableState, ReloadableAction>` so that it can observe
+/// all changes to the state and re-render, and we can send all user actions
+/// to the store so that state changes.
+public struct ParameterReloadableView<
+    Data: Equatable & Codable,
+    Parameter: Equatable & Codable,
     ErrorType: Error & Equatable,
     Content: View,
     Loader: View
@@ -26,12 +36,12 @@ public struct IDReloadableView<
     // MARK: - Aliases
 
     /// Favorite module Store alias
-    public typealias IDReloadableStore = Store<IDReloadableState<Data, ID, ErrorType>, ReloadableAction<Data, ErrorType>>
+    public typealias ParameterReloadableStore = Store<ParameterReloadableState<Data, Parameter, ErrorType>, ReloadableAction<Data, ErrorType>>
 
     // MARK: - Properties
 
     /// `Animations` module `Store` instance
-    private let store: IDReloadableStore
+    private let store: ParameterReloadableStore
 
     /// Target content that shoud be inside view
     public var content: Content
@@ -47,7 +57,7 @@ public struct IDReloadableView<
     ///   - content: Target content that shoud be inside view
     ///   - loader: Target content that shoud used as loader
     public init(
-        store: IDReloadableStore,
+        store: ParameterReloadableStore,
         @ViewBuilder loader: @escaping () -> Loader,
         @ViewBuilder content: @escaping () -> Content
     ) {
