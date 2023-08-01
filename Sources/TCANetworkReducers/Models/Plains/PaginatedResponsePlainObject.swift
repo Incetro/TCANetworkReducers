@@ -10,8 +10,8 @@ import Foundation
 
 // MARK: - PaginatedResponsePlainObject
 
-public struct PaginatedResponsePlainObject<Plain: Decodable & Equatable>: Equatable {
-
+public struct PaginatedResponsePlainObject<Plain: Codable & Equatable> {
+    
     // MARK: - CodingKeys
 
     struct CodingKeys: CodingKey {
@@ -45,6 +45,17 @@ public struct PaginatedResponsePlainObject<Plain: Decodable & Equatable>: Equata
 
     /// Array of paginated entities
     public private(set) var array: [Plain]
+}
+
+// MARK: - PaginatedResponse
+
+extension PaginatedResponsePlainObject: PaginatedResponse {
+    
+    public typealias Element = Plain
+    
+    public var results: [Plain] {
+        array
+    }
 }
 
 // MARK: - Decodable

@@ -1,17 +1,17 @@
 //
-//  IDPaginationReducer.swift
-//  Chibiverse
+//  OffsetPaginationReducer.swift
+//  
 //
-//  Created by Dmitry Savinov on 07.03.2023.
+//  Created by Dmitry Savinov on 01.08.2023.
 //
 
 import TCA
 import Foundation
 import Combine
 
-// MARK: - IDPaginationReducer
+// MARK: - OffsetPaginationReducer
 
-public struct IDPaginationReducer<Response: DefaultPaginatedResponse, ErrorType: Error & Equatable, ID: Equatable & Codable>: ReducerProtocol {
+public struct OffsetPaginationReducer<Response: OffsetPaginatedResponse, ErrorType: Error & Equatable>: ReducerProtocol {
     
     // MARK: - Properties
     
@@ -19,12 +19,12 @@ public struct IDPaginationReducer<Response: DefaultPaginatedResponse, ErrorType:
     @Dependency(\.mainQueueScheduler) var mainQueue: AnySchedulerOf<DispatchQueue>
     
     /// The fetchHandler is defined by the user, it defines the behaviour for how to fetch a given page.
-    public let fetchHandler: (_ id: ID, _ page: Int, _ pageSize: Int) -> AnyPublisher<Response, ErrorType>
+    public var fetchHandler: (_ offset: Int, _ limit: Int) -> AnyPublisher<Response, ErrorType>
     
     // MARK: - Initializers
     
     public init(
-        fetchHandler: @escaping (_ id: ID, _ page: Int, _ pageSize: Int) -> AnyPublisher<Response, ErrorType>
+        fetchHandler: @escaping (_ offset: Int, _ limit: Int) -> AnyPublisher<Response, ErrorType>
     ) {
         self.fetchHandler = fetchHandler
     }
@@ -32,22 +32,23 @@ public struct IDPaginationReducer<Response: DefaultPaginatedResponse, ErrorType:
     // MARK: - ReducerProtocol
     
     public func reduce(
-        into state: inout IDPaginationState<Response.Element, ID>, action: PaginationAction<Response, ErrorType>
+        into state: inout OffsetPaginationState<Response.Element>, action: PaginationAction<Response, ErrorType>
     ) -> EffectTask<PaginationAction<Response, ErrorType>> {
         switch action {
         case .reset:
             state.total = 0
-            state.page = 0
+            state.offset = 0
             state.requestStatus = .none
             state.results = []
-        case .paginate where !state.pagination.reachedLastPage:
+        case .paginate where !state.reachedLastPage && state.requestStatus != .inProgress:
             state.requestStatus = .inProgress
-            return fetchHandler(state.id, state.page + 1, state.pageSize)
+            return fetchHandler(state.offset, state.limit)
                 .catchToEffect(PaginationAction<Response, ErrorType>.response)
         case .response(.success(let paginatedElement)):
+            state.isNeededAutomaticButtonLoading = false
             state.results.append(contentsOf: paginatedElement.results)
-            state.total = paginatedElement.pagination.totalCount
-            state.page += 1
+            state.total = paginatedElement.pagination.total
+            state.offset += paginatedElement.results.count
             state.requestStatus = .done
             if state.results.count >= state.total {
                 return .value(.allElementsFetched)

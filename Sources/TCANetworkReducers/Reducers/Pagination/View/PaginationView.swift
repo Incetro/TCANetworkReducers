@@ -16,16 +16,12 @@ import SwiftUI
 /// It holds onto a `Store<PaginationState, PaginationAction>` so that it can observe
 /// all changes to the state and re-render, and we can send all user actions
 /// to the store so that state changes.
-public struct PaginationView<
-    Element: Equatable & Codable,
-    ErrorType: Error & Equatable,
-    Loader: View
->: View {
+public struct PaginationView<Response: PaginatedResponse, ErrorType: Error & Equatable, Loader: View>: View {
 
     // MARK: - Aliases
 
     /// Favorite module Store alias
-    public typealias PaginationStore = Store<PaginationState<Element>, PaginationAction<Element, ErrorType>>
+    public typealias PaginationStore = Store<PaginationState<Response.Element>, PaginationAction<Response, ErrorType>>
 
     // MARK: - Properties
 
