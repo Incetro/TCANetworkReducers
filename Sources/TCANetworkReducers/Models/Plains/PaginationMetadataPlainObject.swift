@@ -40,6 +40,6 @@ extension PaginationMetadataPlainObject {
         self.currentPage = currentPage
         self.pageCount = pageCount
         self.perPage = perPage
-        self.totalCount = totalPageCount
+        self.totalCount = totalObjectCount
     }
 }
