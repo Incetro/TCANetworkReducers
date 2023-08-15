@@ -26,3 +26,20 @@ public struct PaginationMetadataPlainObject: Equatable, Codable {
     /// Page size
     public let perPage: Int
 }
+
+// MARK: - Initializer
+
+extension PaginationMetadataPlainObject {
+    
+    public init(
+        totalPageCount: Int,
+        pageCount: Int,
+        currentPage: Int,
+        perPage: Int
+    ) {
+        self.currentPage = currentPage
+        self.pageCount = pageCount
+        self.perPage = perPage
+        self.totalCount = totalPageCount
+    }
+}
