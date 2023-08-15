@@ -32,7 +32,7 @@ public struct PaginationMetadataPlainObject: Equatable, Codable {
 extension PaginationMetadataPlainObject {
     
     public init(
-        totalPageCount: Int,
+        totalObjectCount: Int,
         pageCount: Int,
         currentPage: Int,
         perPage: Int
