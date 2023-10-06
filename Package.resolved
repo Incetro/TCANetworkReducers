@@ -77,8 +77,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/monession/TCA",
       "state" : {
-        "branch" : "fix/case_path",
-        "revision" : "6faba7803381bc82aeb0b72aea4dd03788a2e187"
+        "branch" : "master",
+        "revision" : "33c9bf0226cc8279859a0b6686cde3fe4ac0a512"
       }
     },
     {
